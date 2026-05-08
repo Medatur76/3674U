@@ -1,0 +1,17 @@
+{
+    "image":"mcr.microsoft.com/devcontainers/universal:2",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "sigbots.pros",
+                "catppuccin.catppuccin-vsc-icons",
+                "zhuangtongfa.material-theme",
+                "ms-vscode.cpptools-extension-pack"
+            ],
+            "settings": {
+                "workbench.colorTheme": "One Dark Pro Night Flat",
+                "workbench.iconTheme": "catppuccin-latte"
+            }
+        }
+    }
+}
