@@ -1,17 +1,19 @@
 #include "main.h"
 
 //Returns the smaller of the two params
-int min(int x, int y) {
+template<typename T>
+T min(T x, T y) {
 	return x < y ? x : y;
 }
 
 //Returns the larger of the two params
-int max(int x, int y) {
+template<typename T>
+T max(T x, T y) {
 	return x > y ? x : y;
 }
 
 //The index of the current selected auton in the list
-int selected_auton = 0;
+unsigned int selected_auton = 0;
 //A list of string representations for each auton
 std::string autons[] = {"Empty Auton"};
 /**
@@ -33,7 +35,7 @@ auton_function autonFuncs[] = {Auton::Empty::emptyAuton};
 void on_left_button() {
 	pros::lcd::clear_line(2);
 	//Prints the string representation located of an auton at index selected_auton - 1 or 0
-	pros::lcd::set_text(2, autons[selected_auton = max(--selected_auton, 0)]);
+	pros::lcd::set_text(2, autons[selected_auton = max(--selected_auton, (unsigned) 0)]);
 }
 
 /**
