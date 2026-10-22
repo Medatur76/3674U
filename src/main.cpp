@@ -64,6 +64,8 @@ void initialize() {
 	pros::lcd::register_btn0_cb(on_left_button);
 	pros::lcd::register_btn2_cb(on_right_button);
 	pros::lcd::set_text(2, selected_auton[autons]);
+
+	Hardware::cascadeSensor.reset();
 }
 
 /**
@@ -117,12 +119,16 @@ void opcontrol() {
 
 
 	while (true) {
-		// Arcade control scheme
-		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
-		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
+		// Arcade control scheme aka witchcraft incarnate
+		int turn = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick (dont ask)
+		int dir = -master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick (dont ask)
 		Hardware::left_motors.move(dir - turn);                      // Sets left motor voltage
 		Hardware::right_motors.move(dir + turn);                     // Sets right motor voltage
+
+		bool up = master.get_digital(DIGITAL_A); // Gets whether driver wants to move cascade up or not via the A button
+		if (!up || (up && Hardware::cascadeSensor.get_angle() < CASCADEMAXROTATION)) Hardware::cascade.move(up - master.get_digital(DIGITAL_B)); // More witch craft which says blocks the cascade from overshooting and maps B to downward movement
 		
+		if ((master.get_digital(DIGITAL_R1) && !Hardware::clawClosed) || (master.get_digital(DIGITAL_R2) && Hardware::clawClosed)) Hardware::claw.move(Hardware::clawPositions[Hardware::clawClosed ^= 1]); //Even more witch craft to toggle claw with R1 and R2 to close and open respectively 
 		
 		pros::delay(20);                               // Run for 20 ms then update
 	}
