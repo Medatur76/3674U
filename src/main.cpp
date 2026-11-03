@@ -125,10 +125,10 @@ void opcontrol() {
 		Hardware::left_motors.move(dir - turn);                      // Sets left motor voltage
 		Hardware::right_motors.move(dir + turn);                     // Sets right motor voltage
 
-		bool up = master.get_digital(DIGITAL_A); // Gets whether driver wants to move cascade up or not via the A button
-		if (!up || (up && Hardware::cascadeSensor.get_angle() < CASCADEMAXROTATION)) Hardware::cascade.move(up - master.get_digital(DIGITAL_B)); // More witch craft which says blocks the cascade from overshooting and maps B to downward movement
+		bool up = master.get_digital(DIGITAL_R1); // Gets whether driver wants to move cascade up or not via the R1 button
+		if (!up || (up && Hardware::cascadeSensor.get_angle() < CASCADEMAXROTATION)) Hardware::cascade.move(up - master.get_digital(DIGITAL_R2)); // More witch craft which says blocks the cascade from overshooting and maps R2 to downward movement
 		
-		if ((master.get_digital(DIGITAL_R1) && !Hardware::clawClosed) || (master.get_digital(DIGITAL_R2) && Hardware::clawClosed)) Hardware::claw.move(Hardware::clawPositions[Hardware::clawClosed ^= 1]); //Even more witch craft to toggle claw with R1 and R2 to close and open respectively 
+		if ((master.get_digital(DIGITAL_L1) && !Hardware::clawClosed) || (master.get_digital(DIGITAL_L2) && Hardware::clawClosed)) Hardware::claw.move(Hardware::clawPositions[Hardware::clawClosed ^= 1]); //Even more witch craft to toggle claw with L1 and L2 to close and open respectively 
 		
 		pros::delay(20);                               // Run for 20 ms then update
 	}
