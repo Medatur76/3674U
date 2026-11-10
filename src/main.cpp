@@ -15,7 +15,7 @@ T max(T x, T y) {
 //The index of the current selected auton in the list
 unsigned int selected_auton = 0;
 //A list of string representations for each auton
-std::string autons[] = {"Empty Auton"};
+std::string autons[] = {"Empty Auton", "Toggle Rush Right", "Toggle Rush Left"};
 /**
  * The required type for every auton function
  * Must:
@@ -24,7 +24,7 @@ std::string autons[] = {"Empty Auton"};
  */
 using auton_function = void(*)(void);
 //A list of the auton functions that can be called come auton time
-auton_function autonFuncs[] = {Auton::Empty::emptyAuton};
+auton_function autonFuncs[] = {Auton::Empty::emptyAuton, Auton::Rush::right, Auton::Rush::left};
 
 /**
  * Function call for when the left button is pressed on the lcd
@@ -116,7 +116,6 @@ void autonomous() {
  */
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
-
 
 	while (true) {
 		// Arcade control scheme aka witchcraft incarnate

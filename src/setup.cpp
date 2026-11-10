@@ -11,3 +11,10 @@ pros::Rotation Hardware::cascadeSensor(7);
 pros::Motor Hardware::claw(8);
 bool Hardware::clawClosed = 0;
 int Hardware::clawPositions[] = {-1,-1};
+
+#ifdef IMU
+pros::Imu Hardware::imu(9);
+#else
+pros::Rotation Hardware::chassisL(10);
+pros::Rotation Hardware::chassisR(10);
+#endif
