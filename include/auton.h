@@ -6,6 +6,11 @@
  * 3. Auton functions
  */
 
+enum Dir {
+    reverse = -1,
+    forward = 1
+};
+
 class Odom {
     struct Position {
         double x;
@@ -17,12 +22,13 @@ class Odom {
         struct Position currentPos;
 
     public:
+        Odom();
         Odom(struct Position);
 
         void reset();
 
-        void toPosAbs(struct Position, double = 127);
-        void toPosRel(struct Position, double = 127);
+        void toPosAbs(struct Position, enum Dir = forward, double = 127);
+        void toPosRel(struct Position, enum Dir = forward, double = 127);
     
         void spin(double, double = 127);
         void spinTo(double, double = 127);
